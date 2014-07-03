@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GetBackgroundServlet
  */
-@WebServlet("/GetBackgroundServlet")
 public class GetBackgroundServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,38 +20,38 @@ public class GetBackgroundServlet extends HttpServlet {
      */
     public GetBackgroundServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getOutputStream().println("http://formstone.it/files/demo/space.jpg");
-		final File folder = new File("//home/jelen/public/photos/sfo");
-		List<String> fileList = listFilesForFolder(folder);
-		int filenum = fileList.size();
-		String randomFileName = fileList.get((new Random()).nextInt(filenum));
-		response.getOutputStream().println("/bg/sfo/"+randomFileName);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Utility util = new Utility();
+		HashMap<String, String> config = util.getConfig("config.properties");
+		String path = config.get("BgImageHomePath");
+		String theme = config.get("BackgroundTheme");
+		String vdir = config.get("VirtualFolder");
+		
+		final File folder = new File(path + theme);
+		List<String> imgFileList = getImgFileList(folder);
+		int filenum = imgFileList.size();
+		String randomFileName = imgFileList.get((new Random()).nextInt(filenum));
+		response.getOutputStream().println(vdir + theme + "/"+randomFileName);
 	}
 	
-	public List<String> listFilesForFolder(final File folder) {
+	public List<String> getImgFileList(final File folder) {
 		List<String> imglist = new ArrayList<String>();
 	    for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
-	            listFilesForFolder(fileEntry);
-	        } else {
+	            getImgFileList(fileEntry);
+	        } 
+	        else {
 	        	imglist.add(fileEntry.getName());
 	        }
 	    }
+	    
+	    imglist.remove("content.properties");
 	    return imglist;
 	}
+
 }

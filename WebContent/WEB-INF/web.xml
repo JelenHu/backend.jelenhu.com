@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-<display-name>backend.jelenhu.com</display-name>
-<servlet>
-    <servlet-name>first</servlet-name>
+  <display-name>backend.jelenhu.com</display-name>
+  <servlet>
+    <servlet-name>GetImgPath</servlet-name>
     <servlet-class>com.jelenhu.backend.GetBackgroundServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>first</servlet-name>
+  </servlet>
+  <servlet>
+    <servlet-name>GetThemeDescription</servlet-name>
+    <servlet-class>com.jelenhu.backend.GetThemeDescriptionServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>GetImgPath</servlet-name>
     <url-pattern>/GetImgPath</url-pattern>
-</servlet-mapping>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>GetThemeDescription</servlet-name>
+    <url-pattern>/GetThemeDescription</url-pattern>
+  </servlet-mapping>
 </web-app>
