@@ -3,3 +3,7 @@
 /WebContent/WEB-INF/classes
 *.class
 *.war
+.DS_Store
+.classpath
+.project
+.settings/
